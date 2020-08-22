@@ -4,9 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Red Key
+  - picktool
+  - usetool
+  - usedevice
+  - watchobj
   - Blue Key
   - Driver
+  - Red Key
+  - nplayertalk
+  - escapedoor
   layers:
   - Default
   - TransparentFX

@@ -4,29 +4,42 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// load scene and main enter 
+/// Do something before scene load
+/// </summary>
+
+
 public class LoadManager : MonoBehaviour
 {
+    private static LoadManager _instance;
     public GameObject loadScreen;
     public GameObject hideScreen;
     public Slider slider;
     public Text text;
 
+    private void Awake()
+    {
+#if UNITY_EDITOR
+        Debug.unityLogger.logEnabled = true;
+#else
+        Debug.unityLogger.logEnabled=false;
+#endif
+
+        _instance = this;
+        DontDestroyOnLoad(_instance.gameObject);
+    }
+    public static LoadManager Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
     public void LoadNextLevel()
     {
         StartCoroutine(LoadLevel());
-    }
-
-    public void QuitGame()
-    {
-        #if UNITY_STANDALONE
-        //Quit the application
-        Application.Quit();
-        #endif
-
-        #if UNITY_EDITOR
-        //Stop playing the scene
-        UnityEditor.EditorApplication.isPlaying = false;
-        #endif
     }
 
     IEnumerator LoadLevel()
